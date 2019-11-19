@@ -1,0 +1,134 @@
+<template>
+  <div id="app">
+      <router-view></router-view>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'App'
+}
+</script>
+
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+}
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+.ds-thread,
+.ds-thread * {
+    box-sizing: content-box;
+}
+
+body {
+    background-color: #fff;
+    color: #333;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: normal;
+    -webkit-text-size-adjust: none;
+    font-family: STHeitiSC-Light;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: normal;
+}
+
+input[type="text"],
+textarea {
+    border-width: 1px;
+    box-shadow: none;
+    -webkit-appearance: none;
+    resize: none;
+}
+
+input,
+textarea,
+select {
+    outline: none;
+}
+
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+    -webkit-appearance: none;
+}
+
+img {
+    border: 0;
+}
+
+*[id^='xunlei'] {
+    display: none;
+}
+
+table {
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+    outline: none;
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.clear {
+    clear: both;
+}
+
+input:-webkit-autofill {
+    background: none;
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+    color: #000;
+}
+
+button {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+ul,
+ol {
+    list-style-position: inside;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+    display: block;
+}
+</style>
