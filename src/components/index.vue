@@ -119,17 +119,20 @@
             },
             getData() {
                 if (window.location.search.split("=")[0] === '') {
-                    // window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx709ac12a75ab18ee&redirect_uri="+encodeURIComponent(window.location.href.split("?")[0]+window.location.hash)+"&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
-                    window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx709ac12a75ab18ee&redirect_uri="+encodeURIComponent(window.location.href.split("?")[0])+"&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
+                    alert("aaa");
+                    window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx709ac12a75ab18ee&redirect_uri="+encodeURIComponent(window.location.href.split("?")[0]+window.location.hash)+"&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
+                    // window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx709ac12a75ab18ee&redirect_uri="+encodeURIComponent(window.location.href.split("?")[0])+"&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
                 } else {
-                    // let code = window.location.search.split("=")[1].split("&")[0];
-                    let code = this.$route.query.code;
+                    let code = window.location.search.split("=")[1].split("&")[0];
+                    // let code = this.$route.query.code;
+                    alert("bbb");
                     this.$axios({
                         method: 'post',
                         url: "/appservice/wechat/qrcode/getWechatUserinfo?code=" + code
                     }).then((item) => {
                         let data = item.data;
                         if (data.state === 200) {
+                            alert("ccc");
                             // this.$jsonp('https://api.weixin.qq.com/sns/userinfo?access_token=27_UaMQ-K1Wu207vZcQqUYxZQO3vyRz9vfGVYfeoSvLfvUft91LVFA299Hj-EP48vN7XFt5lpdfAmUbGETRETZ8Uw&openid=or-mB56uFXpKmxC2whkA8nVncyfY&lang=zh_CN', null,(err,data)=> {
                             //     console.log(err,data)
                             // });
@@ -142,11 +145,13 @@
                             } else {
                                 url = "/appservice/wechat/qrcode/register?wechatAccount=or-mB56uFXpKmxC2whkA8nVncyfY&wechatNickname=团子的老父亲&wechatHeadimg=http://thirdwx.qlogo.cn/mmopen/vi_32/LDN7icjqGqTUDDVoVvw1VtNNoibbgl6oYoNMgDEjZArCYGpEBGSsSCHChraL0bO3qWcANdzSBop105VjnKyiaMRnA/132"
                             }
+                            alert(url);
                             this.$axios({
                                 method: 'post',
                                 url: url,
                             }).then((item1) => {
                                 let data1 = item1.data;
+                                alert("ddd");
                                 if (data1.state === 200) {
                                     this.data = data1;
                                     this.getUser();
@@ -161,6 +166,7 @@
 
             },
             getUser() {
+                alert("eee");
                 this.timeName = setInterval(() => {
                     this.$axios({
                         method: 'post',
