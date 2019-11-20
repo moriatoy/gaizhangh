@@ -2,7 +2,7 @@
     <div class="index">
         <div class="text">
             <div class="centianer">
-                <div class="title">签到奖励规则</div>
+                <div class="title">打卡奖励规则</div>
                 <div class="text-p">
                     <p>① 首次打卡赠送蛋挞</p>
                     <p>② 打卡7次赠送6寸西点</p>
@@ -15,7 +15,7 @@
                 <img :src="info.qrCode" alt="">
                 <p>长按保存二维码</p>
             </div>
-            <div class="label">直接让商家扫码即可完成签到</div>
+            <div class="label">直接让商家扫码即可完成打卡</div>
         </div>
         <div class="reward">
             <div class="top">摩尼卡蛋糕打卡</div>
@@ -119,20 +119,17 @@
             },
             getData() {
                 if (window.location.search.split("=")[0] === '') {
-                    alert("aaa");
-                    window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx709ac12a75ab18ee&redirect_uri="+encodeURIComponent(window.location.href.split("?")[0]+window.location.hash)+"&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
-                    // window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx709ac12a75ab18ee&redirect_uri="+encodeURIComponent(window.location.href.split("?")[0])+"&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
+                    // window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx709ac12a75ab18ee&redirect_uri="+encodeURIComponent(window.location.href.split("?")[0]+window.location.hash)+"&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
+                    window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx709ac12a75ab18ee&redirect_uri="+encodeURIComponent(window.location.href.split("?")[0])+"&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
                 } else {
-                    let code = window.location.search.split("=")[1].split("&")[0];
-                    // let code = this.$route.query.code;
-                    alert("bbb");
+                    // let code = window.location.search.split("=")[1].split("&")[0];
+                    let code = this.$route.query.code;
                     this.$axios({
                         method: 'post',
                         url: "/appservice/wechat/qrcode/getWechatUserinfo?code=" + code
                     }).then((item) => {
                         let data = item.data;
                         if (data.state === 200) {
-                            alert("ccc");
                             // this.$jsonp('https://api.weixin.qq.com/sns/userinfo?access_token=27_UaMQ-K1Wu207vZcQqUYxZQO3vyRz9vfGVYfeoSvLfvUft91LVFA299Hj-EP48vN7XFt5lpdfAmUbGETRETZ8Uw&openid=or-mB56uFXpKmxC2whkA8nVncyfY&lang=zh_CN', null,(err,data)=> {
                             //     console.log(err,data)
                             // });
@@ -145,13 +142,11 @@
                             } else {
                                 url = "/appservice/wechat/qrcode/register?wechatAccount=or-mB56uFXpKmxC2whkA8nVncyfY&wechatNickname=团子的老父亲&wechatHeadimg=http://thirdwx.qlogo.cn/mmopen/vi_32/LDN7icjqGqTUDDVoVvw1VtNNoibbgl6oYoNMgDEjZArCYGpEBGSsSCHChraL0bO3qWcANdzSBop105VjnKyiaMRnA/132"
                             }
-                            alert(url);
                             this.$axios({
                                 method: 'post',
                                 url: url,
                             }).then((item1) => {
                                 let data1 = item1.data;
-                                alert("ddd");
                                 if (data1.state === 200) {
                                     this.data = data1;
                                     this.getUser();
@@ -166,7 +161,6 @@
 
             },
             getUser() {
-                alert("eee");
                 this.timeName = setInterval(() => {
                     this.$axios({
                         method: 'post',
