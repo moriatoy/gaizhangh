@@ -4,68 +4,68 @@
             <div class="centianer">
                 <div class="title">打卡奖励规则</div>
                 <div class="text-p">
-                    <p>① 首次打卡赠送蛋挞</p>
-                    <p>② 打卡7次赠送6寸西点</p>
-                    <p>③ 打卡12次赠送6寸生日蛋糕</p>
-                    <p>④ 打卡22次赠送8寸生日蛋糕</p>
-                    <p>⑤ 长按保存打卡二维码，下次可直接使用手机相册里二维码图片打卡 ~</p>
+                    <p>① 满28.5元就可以找老板扫码打卡</p>
+                    <p>② 打卡7次赠送任意8元蛋糕</p>
+                    <p>③ 打卡12次赠送6寸西点</p>
+                    <p>④ 打卡22次赠送6寸生日蛋糕</p>
+                    <p>⑤ 长按保存打卡二维码，下次就能直接使用手机相册里二维码图片打卡</p>
                 </div>
             </div>
             <div class="image">
                 <img :src="info.qrCode" alt="">
                 <p>长按保存二维码</p>
             </div>
-            <div class="label">直接让商家扫码即可完成打卡</div>
+            <div class="label">直接让老板扫码就可以完成打卡</div>
         </div>
         <div class="reward">
-            <div class="top">摩尼卡蛋糕打卡</div>
+            <div class="top">摩尼卡蛋糕店卡签</div>
             <div class="center">
                 <div class="left" @click="animationLeft=false;animationRight=true"></div>
                 <div class="reward-center">
                     <div class="reward-content" :class="{'animation-left':animationLeft,'animation-right':animationRight}">
                         <div style="width: 50%;float: left">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount === 0" alt="">
+                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount === 0" alt="" >
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="info.signinCount > 0" alt="" @click="reward(1)" class="shake">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 2" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 2" alt="" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 3" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 3" alt="" class="shake">
+                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 2" alt=""  class="shake">
+                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount < 3" alt="">
+                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="info.signinCount >= 3" alt=""  @click="reward(1)" class="shake">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 4" alt="">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 4" alt="" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 5" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 5" alt="" class="shake">
+                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount < 5" alt="">
+                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="info.signinCount >= 5" alt="" @click="reward(1)" class="shake">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 6" alt="">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 6" alt="" class="shake">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount < 7" alt="">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="info.signinCount >= 7" alt="" @click="reward(7)" class="shake">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 8" alt="">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 8" alt="" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 9" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 9" alt="" class="shake">
+                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount < 9" alt="">
+                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="info.signinCount >= 9" alt="" @click="reward(1)" class="shake">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 10" alt="">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 10" alt="" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 11" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 11" alt="" class="shake">
+                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount < 11" alt="">
+                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="info.signinCount >= 11" alt=""  @click="reward(1)" class="shake">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount < 12" alt="">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="info.signinCount >= 12" alt="" @click="reward(12)" class="shake">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 13" alt="">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 13" alt="" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 14" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 14" alt="" class="shake">
+                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount < 14" alt="">
+                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="info.signinCount >= 14" alt="" @click="reward(1)"  class="shake">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 15" alt="">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 15" alt="" class="shake">
                         </div>
                         <div style="width: 50%;float: left">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 16" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 16" alt="" class="shake">
+                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount < 16" alt="">
+                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="info.signinCount >= 16" alt="" @click="reward(1)" class="shake">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 17" alt="">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 17" alt="" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 18" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 18" alt="" class="shake">
+                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount < 18" alt="">
+                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="info.signinCount >= 18" alt="" @click="reward(1)" class="shake">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 19" alt="">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 19" alt="" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 20" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 20" alt="" class="shake">
+                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount < 20" alt="">
+                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="info.signinCount >= 20" alt="" @click="reward(1)" class="shake">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 21" alt="">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 21" alt="" class="shake">
                             <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount < 22" alt="">
@@ -75,14 +75,14 @@
                 </div>
                 <div class="right" @click="animationLeft=true;animationRight=false"></div>
             </div>
-            <div class="bottom">已签到{{ info.signinCount }}次</div>
+            <div class="bottom">已打卡{{ info.signinCount }}次</div>
         </div>
         <transition name="fade">
             <div class="model" v-show="model">
                 <div class="model-cotent">
                     <div class="model-cole" @click="model=false"></div>
-                    <h3>打卡奖励</h3>
-                    <p>恭喜您获得 {{ rewardCent }} 奖励</p>
+                    <h3>打卡奖品</h3>
+                    <p>奖品为： {{ rewardCent }} </p>
                 </div>
             </div>
         </transition>
@@ -106,14 +106,14 @@
         },
         methods: {
             reward(item) {
-                if (item === 1) {
-                    this.rewardCent = '蛋挞'
+                if (item === 1||item === 3||item === 5||item === 9||item === 11||item === 14||item === 16||item === 18||item === 20) {
+                    this.rewardCent = '蛋挞一份'
                 } else if (item === 7) {
-                    this.rewardCent = '6寸西点'
+                    this.rewardCent = '任选8元蛋糕一份'
                 } else if (item === 12) {
-                    this.rewardCent = '6寸生日蛋糕'
+                    this.rewardCent = '6寸西点一份'
                 } else if (item === 22) {
-                    this.rewardCent = '8寸生日蛋糕'
+                    this.rewardCent = '6寸生日蛋糕一份'
                 }
                 this.model = true;
             },

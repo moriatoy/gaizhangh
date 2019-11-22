@@ -12,8 +12,8 @@ module.exports = {
         assetsPublicPath: '/',
         proxyTable: {
             '/appservice/**': {
-                // target: 'http://110.200.46.236/', // 正式环境
-                target: 'http://www.konkonyu.com/', // 本地环境
+                target: 'http://101.200.46.236/', // 正式环境
+                // target: 'http://www.konkonyu.com/', // 本地环境
                 changeOrigin: true,
                 pathRewrite: {
                     '^/appservice': '/appservice'
@@ -22,10 +22,10 @@ module.exports = {
         },
 
         // Various Dev Server settings
-          host: 'localhost', // can be overwritten by process.env.HOST
+          // host: 'localhost', // can be overwritten by process.env.HOST
         Referer: 'http://localhost:8080/',
-        // host: 'www.konkonyu.com', // can be overwritten by process.env.HOST
-        port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+        host: 'www.konkonyu.com', // can be overwritten by process.env.HOST
+        port: 80, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
         autoOpenBrowser: false,
         errorOverlay: true,
         notifyOnErrors: true,
