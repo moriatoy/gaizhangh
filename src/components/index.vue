@@ -1,14 +1,25 @@
 <template>
     <div class="index">
+        <div class="background"></div>
+        <div class="screen" @click="ranking = true" v-if="rankingData[0]">
+            <p>恭喜</p>
+            <img :src="rankingData[0].wechatHeadimg" alt="头像">
+            <p>{{ rankingData[0].wechatNickname }}签到{{ rankingData[0].typeSignCount }}次，位居傍一</p>
+        </div>
+        <div class="button">
+            <div class="btn" v-for="item in info.types" @click="typeChange(item)">{{ item.typeName }}</div>
+        </div>
         <div class="text">
             <div class="centianer">
                 <div class="title">打卡奖励规则</div>
                 <div class="text-p">
-                    <p>① 满28.5元就可以找老板扫码打卡</p>
-                    <p>② 打卡7次赠送任意8元蛋糕</p>
-                    <p>③ 打卡12次赠送6寸西点</p>
-                    <p>④ 打卡22次赠送6寸生日蛋糕</p>
-                    <p>⑤ 长按保存打卡二维码，下次就能直接使用手机相册里二维码图片打卡</p>
+<!--                    <p>① 单次购买满30元就可以找老板扫码打卡</p>-->
+<!--                    <p>② 首次打卡赠送蛋挞一个</p>-->
+<!--                    <p>③ 打卡7次赠送6寸西点</p>-->
+<!--                    <p>④ 打卡12次赠送6寸生日蛋糕</p>-->
+<!--                    <p>⑤ 打卡22次赠送8寸生日蛋糕</p>-->
+<!--                    <p>⑥ 长按保存打卡二维码，下次就能直接使用手机相册里二维码图片打卡</p>-->
+                    <p>{{ info.ruleName }}</p>
                 </div>
             </div>
             <div class="image">
@@ -20,69 +31,65 @@
         <div class="reward">
             <div class="top">摩尼卡蛋糕店卡签</div>
             <div class="center">
-                <div class="left" @click="animationLeft=false;animationRight=true"></div>
                 <div class="reward-center">
-                    <div class="reward-content" :class="{'animation-left':animationLeft,'animation-right':animationRight}">
-                        <div style="width: 50%;float: left">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount === 0" alt="" >
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="info.signinCount > 0" alt="" @click="reward(1)" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 2" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 2" alt=""  class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount < 3" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="info.signinCount >= 3" alt=""  @click="reward(1)" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 4" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 4" alt="" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount < 5" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="info.signinCount >= 5" alt="" @click="reward(1)" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 6" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 6" alt="" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount < 7" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="info.signinCount >= 7" alt="" @click="reward(7)" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 8" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 8" alt="" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount < 9" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="info.signinCount >= 9" alt="" @click="reward(1)" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 10" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 10" alt="" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount < 11" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="info.signinCount >= 11" alt=""  @click="reward(1)" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount < 12" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="info.signinCount >= 12" alt="" @click="reward(12)" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 13" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 13" alt="" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount < 14" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="info.signinCount >= 14" alt="" @click="reward(1)"  class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 15" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 15" alt="" class="shake">
-                        </div>
-                        <div style="width: 50%;float: left">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount < 16" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="info.signinCount >= 16" alt="" @click="reward(1)" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 17" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 17" alt="" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount < 18" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="info.signinCount >= 18" alt="" @click="reward(1)" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 19" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 19" alt="" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount < 20" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="info.signinCount >= 20" alt="" @click="reward(1)" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="info.signinCount < 21" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="info.signinCount >= 21" alt="" class="shake">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="info.signinCount < 22" alt="">
-                            <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="info.signinCount >= 22" alt="" @click="reward(22)">
-                        </div>
-                    </div>
+                    <swiper :options="swiperOption" ref="mySwiper">
+                        <!-- slides -->
+                        <swiper-slide :key="index" v-for="(item,index) in arrayItem">
+                            <div class="reward-content" >
+                                <div class="image-item" v-for="(itemItem,indexItem) in item.array">
+                                    <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_3.png" v-if="itemItem.type && (rewardItem.typeSignCount < indexItem+1+15*index)" @click="reward(itemItem,'not')" alt="">
+                                    <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_4.png" v-if="itemItem.type && (rewardItem.typeSignCount >= indexItem+1+15*index)" class="shake" @click="reward(itemItem)" alt="">
+                                    <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_1.png" v-if="!itemItem.type && (rewardItem.typeSignCount < indexItem+1+15*index)" alt="">
+                                    <img src="https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/icon_2.png" v-if="!itemItem.type  && (rewardItem.typeSignCount >= indexItem+1+15*index)" alt="">
+                                </div>
+                            </div>
+                        </swiper-slide>
+                        <!-- Optional controls -->
+                        <div class="swiper-button-prev" slot="button-prev"></div>
+                        <div class="swiper-button-next" slot="button-next"></div>
+                    </swiper>
                 </div>
-                <div class="right" @click="animationLeft=true;animationRight=false"></div>
             </div>
-            <div class="bottom">已打卡{{ info.signinCount }}次</div>
+            <div class="bottom">已打卡{{ rewardItem.typeSignCount }}次</div>
         </div>
+        <!--        奖品-->
         <transition name="fade">
-            <div class="model" v-show="model">
+            <div class="model" v-show="model" @click.self="model=false">
                 <div class="model-cotent">
                     <div class="model-cole" @click="model=false"></div>
                     <h3>打卡奖品</h3>
-                    <p>奖品为： {{ rewardCent }} </p>
+                    <p>{{ rewardText }}： {{ rewardCent }} </p>
+                </div>
+            </div>
+        </transition>
+        <!--        排行榜-->
+        <transition name="fade">
+            <div class="model" v-show="ranking" @click.self="ranking=false">
+                <div class="ranking-content">
+                    <div class="ranking-cole" @click="ranking=false"></div>
+                    <div class="top-image" v-if="rankingData[0]">
+                        <img :src="rankingData[0].wechatHeadimg" alt="">
+                    </div>
+                    <div class="top-title" v-if="rankingData[0]">{{ rankingData[0].wechatNickname }}</div>
+                    <div class="top-text" v-if="rankingData[0]">第1名：签到 {{ rankingData[0].typeSignCount }} 次</div>
+                    <div class="ranking-list">
+                        <div class="ranking-list-item" v-for="(item,index) in rankingData">
+                            <div class="ranking-top"></div>
+                            <div class="ranking-left">
+                                <div v-if="index === 0" style="background-color: #D93F46" class="number">1</div>
+                                <div v-else-if="index === 1" style="background-color: #74DFE9" class="number">2</div>
+                                <div v-else-if="index === 2" style="background-color: #4C9EDF" class="number">3</div>
+                                <div v-else style="background-color: #EDF5FA" class="number">{{ index+1 }}</div>
+                                <div class="ranking-image">
+                                    <img :src="item.wechatHeadimg" alt="">
+                                </div>
+                                <div class="ranking-name">{{ item.wechatNickname }}</div>
+                            </div>
+                            <div class="ranking-right">
+                                签到{{ item.typeSignCount }}次
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </transition>
@@ -90,31 +97,50 @@
 </template>
 
 <script>
+    import 'swiper/dist/css/swiper.css'
+    import { swiper, swiperSlide } from 'vue-awesome-swiper'
     export default {
         name: 'index',
+        components: {
+            swiper,
+            swiperSlide
+        },
         data() {
             return {
                 model: false,
+                rewardText: '',
                 rewardCent: '',
                 timeName: '',
                 data: {},
                 info: {},
                 value: '',
+                typeId: '',
+                rewardItem: {},
+                arrayItem:[],
                 animationLeft: false,
-                animationRight: false
+                animationRight: false,
+                // 轮播图配置
+                swiperOption: {
+                    speed: 600,
+                    effect: 'slide',
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev'
+                    }
+                },
+                // 排行数据
+                ranking: false,
+                rankingData: []
             }
         },
         methods: {
-            reward(item) {
-                if (item === 1||item === 3||item === 5||item === 9||item === 11||item === 14||item === 16||item === 18||item === 20) {
-                    this.rewardCent = '蛋挞一份'
-                } else if (item === 7) {
-                    this.rewardCent = '任选8元蛋糕一份'
-                } else if (item === 12) {
-                    this.rewardCent = '6寸西点一份'
-                } else if (item === 22) {
-                    this.rewardCent = '6寸生日蛋糕一份'
+            reward(item,type) {
+                if (type === 'not') {
+                    this.rewardText = '奖品为'
+                } else {
+                    this.rewardText = '恭喜您获得'
                 }
+                this.rewardCent = item.prizeName;
                 this.model = true;
             },
             getData() {
@@ -161,26 +187,241 @@
 
             },
             getUser() {
-                this.timeName = setInterval(() => {
-                    this.$axios({
-                        method: 'post',
-                        url: "/appservice/wechat/qrcode/queryUserinfo?id="+this.data.data
-                    }).then((item) => {
-                        let data = item.data;
-                        if (data.state === 200) {
-                            this.info = data.data;
-                            let loading = document.getElementById('Loading');
-                            if (loading != null) {
-                                document.body.removeChild(loading);
+                this.getUserInfo();
+                // this.timeName = setInterval(() => {
+                //     this.getUserInfo();
+                // },2000);
+            },
+            // 用户信息
+            getUserInfo() {
+                this.$axios({
+                    method: 'post',
+                    url: "/appservice/wechat/qrcode/getUserCardSign?id="+this.data.data
+                }).then((item) => {
+                    let data = item.data;
+                    if (data.state === 200) {
+                        // this.info = data.data;
+                        let loading = document.getElementById('Loading');
+                        if (loading != null) {
+                            document.body.removeChild(loading);
+                            this.queryUserinfo();
+                        }
+                    }
+                })
+                // this.$axios({
+                //     method: 'post',
+                //     url: "/appservice/wechat/qrcode/queryUserinfo?id="+this.data.data
+                // }).then((item) => {
+                //     let data = item.data;
+                //     if (data.state === 200) {
+                //         this.info = data.data;
+                //         let loading = document.getElementById('Loading');
+                //         if (loading != null) {
+                //             document.body.removeChild(loading);
+                //         }
+                //     }
+                // })
+            },
+            // 切换卡签类型
+            typeChange(item) {
+                this.rewardItem = item;
+                this.setRewardItem();
+            },
+            // 卡签用户详情信息
+            queryUserinfo() {
+                this.$axios({
+                    method: 'post',
+                    url: "/appservice/wechat/qrcode/queryUserinfo?merchantId=9&id="+this.data.data
+                }).then((item) => {
+                    let data = item.data;
+                    if (data.state === 200) {
+                        //=数据===================
+                        // data.data = {
+                        //     id: 10029,
+                        //     level: null,
+                        //     password: null,
+                        //     qrCode: "https://konkonyu.oss-cn-beijing.aliyuncs.com/qrcode/or-mB56uFXpKmxC2whkA8nVncyfY/二维码.png",
+                        //     registerTime: "2019-12-04 12:29:02",
+                        //     ruleName: "规则描述",
+                        //     typeSignCount: null,
+                        //     types: [
+                        //         {
+                        //             typeId: 10000000,
+                        //             typeName: "15天签到",
+                        //             merchantId: "9",
+                        //             typeSignCount: 30,
+                        //             prizeList: [
+                        //                 {
+                        //                     prizeName: "苹果1",
+                        //                     signinCount: 1
+                        //                 },
+                        //                 {
+                        //                     prizeName: "苹果2",
+                        //                     signinCount: 2
+                        //                 },{
+                        //                     prizeName: "苹果3",
+                        //                     signinCount: 8
+                        //                 },
+                        //                 {
+                        //                     prizeName: "苹果4",
+                        //                     signinCount: 18
+                        //                 },{
+                        //                     prizeName: "苹果5",
+                        //                     signinCount: 21
+                        //                 },{
+                        //                     prizeName: "苹果6",
+                        //                     signinCount: 43
+                        //                 }
+                        //             ]
+                        //         },
+                        //         {
+                        //             typeId: 10000001,
+                        //             typeName: "30天签到",
+                        //             merchantId: "10",
+                        //             typeSignCount: 9,
+                        //             prizeList: [
+                        //                 {
+                        //                     prizeName: "蛋挞一份",
+                        //                     signinCount: 1
+                        //                 },
+                        //                 {
+                        //                     prizeName: "6寸西点一份",
+                        //                     signinCount: 7
+                        //                 },{
+                        //                     prizeName: "8寸西点一份",
+                        //                     signinCount: 12
+                        //                 },
+                        //                 {
+                        //                     prizeName: "8寸生日蛋糕一份",
+                        //                     signinCount: 22
+                        //                 }
+                        //             ]
+                        //         }
+                        //     ],
+                        //     wechatAccount: "or-mB56uFXpKmxC2whkA8nVncyfY",
+                        //     wechatHeadimg: "http://thirdwx.qlogo.cn/mmopen/vi_32/LDN7icjqGqTUDDVoVvw1VtNNoibbgl6oYoNMgDEjZArCYGpEBGSsSCHChraL0bO3qWb5HSsDg14yb8AKiaia64jTKg/132",
+                        //     wechatNickname: "良民。",
+                        // };
+                        this.info = data.data;
+                        this.typeId = data.data.types[0].typeId;
+                        this.rewardItem = data.data.types[0];
+                        // 处理礼品动态展示
+                        this.setRewardItem();
+                        // 获取排行榜
+                        this.getRankinglist();
+                    }
+                })
+            },
+            // 处理礼品动态展示
+            setRewardItem() {
+                let array = [];
+                this.rewardItem.prizeList.forEach((c,index) => {
+                    if (index === 0) {
+                        for(let i = 0; i < c.signinCount; i++) {
+                            if (i === c.signinCount-1) {
+                                let objectItem = {
+                                    prizeName: c.prizeName,
+                                    signinCount: c.signinCount,
+                                    type: true
+                                };
+                                array.push(objectItem);
+                            } else {
+                                let objectItem = {
+                                    prizeName: '',
+                                    signinCount: i+1,
+                                    type: false
+                                };
+                                array.push(objectItem);
                             }
                         }
-                    })
-                },2000);
+                    } else {
+                        for(let i = this.rewardItem.prizeList[index-1].signinCount; i < c.signinCount; i++) {
+                            if (i === c.signinCount-1) {
+                                let objectItem = {
+                                    prizeName: c.prizeName,
+                                    signinCount: c.signinCount,
+                                    type: true
+                                };
+                                array.push(objectItem);
+                            } else {
+                                let objectItem = {
+                                    prizeName: '',
+                                    signinCount: i+1,
+                                    type: false
+                                };
+                                array.push(objectItem);
+                            }
+
+                        }
+                    }
+                });
+                let arrayItem = [];
+                array.forEach((c,index) => {
+                    if (index === 0) {
+                        let object = {
+                            array: [c]
+                        };
+                        arrayItem.push(object)
+                    } else if (index === (Math.ceil(index / 15) * 15)) {
+                        let object = {
+                            array: [c]
+                        };
+                        arrayItem.push(object)
+                    } else {
+                        let indexItem = Math.ceil(index / 15) - 1;
+                        arrayItem[indexItem].array.push(c)
+                    }
+                });
+                this.arrayItem = arrayItem;
+            },
+            // 排行榜
+            getRankinglist() {
+                this.$axios({
+                    method: 'post',
+                    url: "/appservice/wechat/qrcode/getrankinglist?merchantId=9&typeId="+this.typeId
+                }).then((item) => {
+                    let data = item.data;
+                    if (data.state === 200) {
+                        //=数据===================
+                        // data.data = [
+                        //     {
+                        //         "userId": 10007,
+                        //         "typeSignCount": 3,
+                        //         "wechatNickname": "白云",
+                        //         "wechatHeadimg": "http://thirdwx.qlogo.cn/mmopen/vi_32/E6B6c2avOG4ia3taib6tQib6RaaT6VlRI4GxfgF3qCWIzkLqaH49u2VwsZcOPmAXqtNP3MA0H6AeicWHI3iabVnn9WA/132"
+                        //     },
+                        //     {
+                        //         "userId": 10010,
+                        //         "typeSignCount": 1,
+                        //         "wechatNickname": "简单（程）",
+                        //         "wechatHeadimg": "http://thirdwx.qlogo.cn/mmopen/vi_32/hMXgibHyjt8FYnq6tobhNib1ricL8RdQqtN4kiattNSxJ4dL5NtMXMZO0RdrS5lqJ2Sh2RiaOTK0PfNQQO6NT7x6xgg/132"
+                        //     },
+                        //     {
+                        //         "userId": 10024,
+                        //         "typeSignCount": 1,
+                        //         "wechatNickname": "Xc.",
+                        //         "wechatHeadimg": "http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLicZsTVhLDTQ4NTeFKibCE7ezfgsZxD0IJxdfDHNRnrsTv91cF3o44UAd7mNbyI7onxyjIQsLdBfRg/132"
+                        //     },
+                        //     {
+                        //         "userId": 10010,
+                        //         "typeSignCount": 1,
+                        //         "wechatNickname": "简单（程）",
+                        //         "wechatHeadimg": "http://thirdwx.qlogo.cn/mmopen/vi_32/hMXgibHyjt8FYnq6tobhNib1ricL8RdQqtN4kiattNSxJ4dL5NtMXMZO0RdrS5lqJ2Sh2RiaOTK0PfNQQO6NT7x6xgg/132"
+                        //     },
+                        //     {
+                        //         "userId": 10024,
+                        //         "typeSignCount": 1,
+                        //         "wechatNickname": "Xc.",
+                        //         "wechatHeadimg": "http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLicZsTVhLDTQ4NTeFKibCE7ezfgsZxD0IJxdfDHNRnrsTv91cF3o44UAd7mNbyI7onxyjIQsLdBfRg/132"
+                        //     }
+                        // ];
+                        this.rankingData = data.data;
+                    }
+                })
             }
         },
         mounted() {
             this.getData();
-
         },
         beforeDestroy(){
 //            清楚定时器
@@ -192,25 +433,67 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .index {
-        background: url("https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/background.f9ae2d1.png") no-repeat top center;
+        /*background: url("https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/background.f9ae2d1.png") no-repeat top center;*/
+        background: url("../assets/image/background.png") repeat top center;
         background-size: 100%;
         min-height: 100vh;
-        padding-top: 18vw;
         overflow: hidden;
+    }
+    .background {
+        height: 9vh;
+        background: url("../assets/image/background1.png") no-repeat top center;
+        background-size: 100%;
+    }
+    .screen {
+        overflow: hidden;
+        text-align: center;
+        color: #2480B4;
+        background: rgba(105,211,241,.5);
+        padding: 5px 0;
+    }
+    .screen img {
+        width: 5vw;
+        vertical-align: middle;
+        border-radius: 5vw;
+    }
+    .screen p {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .button {
+        overflow: hidden;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .button .btn {
+        background: url("../assets/image/button.png") no-repeat center center;
+        background-size: 100%;
+        width: 30vw;
+        height: 11.5vw;
+        line-height: 11.5vw;
+        text-align: center;
+        margin: 0 3vw;
+        color: #fff;
     }
     .text {
         width: 90%;
         margin: 0 auto;
         background: url("https://konkonyu.oss-cn-beijing.aliyuncs.com/qiandao/img/text-background.7889ec7.png") no-repeat top center;
         background-size: 100%;
-        padding: 8px;
+        padding: 2vw;
     }
     .text .centianer {
         background: #fff;
         border-top-left-radius: 30px;
         border-top-right-radius: 30px;
-        height: 56vw;
+        height: 55.6vw;
         /*overflow-y: auto;*/
+    }
+    .centianer .text-p {
+        height: 43vw;
+        overflow-y: auto;
     }
     .title {
         background: #449FE3;
@@ -230,7 +513,7 @@
         line-height: 24px;
     }
     .image {
-        width: 40%;
+        width: 33vw;
         margin: 20px auto 0;
         background: #62D0EE;
         text-align: center;
@@ -246,6 +529,8 @@
     .image p {
         display: block;
         padding: .5em 0;
+        font-size: 10px;
+        font-weight: 600;
         color: #fff;
     }
     .label {
@@ -278,62 +563,41 @@
     }
     .center {
         padding-top: 10vw;
-        padding-bottom: 5vw;
+        padding-bottom: 2.6vw;
         overflow-y: hidden;
-    }
-    .center .left {
-        float: left;
-        width: 10%;
-        height: 42vw;
-        background: url("../assets/image/left.png") no-repeat center center;
-        background-size: 40%;
-    }
-
-    .center .right {
-        float: left;
-        width: 10%;
-        height: 42vw;
-        background: url("../assets/image/rigth.png") no-repeat center center;
-        background-size: 40%;
     }
     .center .reward-center {
         float: left;
-        width: 80%;
+        width: 100%;
         height: 42vw;
         overflow: hidden;
         position: relative;
     }
-    .reward-content img {
+    .reward-content {
+        padding: 0 10%;
+        height: 42vw;
+    }
+    /*改变了颜色和加粗的样式*/
+    .swiper-button-prev{
+        background:url("../assets/image/left.png") no-repeat center left;
+        background-size: 40%;
+    }
+    .swiper-button-next{
+        background:url("../assets/image/rigth.png") no-repeat center right;
+        background-size: 40%;
+    }
+
+    .reward-content .image-item {
         float: left;
         display: block;
         width: 20%;
     }
-    .reward-content {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 200%;
 
+    .reward-content .image-item img {
+       width: 100%;
     }
-    .animation-left {
-        animation: mymove .5s linear;
-        animation-fill-mode:forwards
-    }
-    @keyframes mymove
-    {
-        0%   {left:0}
-        50%  {left:-50%}
-        100% {left:-100%}
-    }
-    .animation-right {
-        animation: mymove1 .5s linear;
-        animation-fill-mode:forwards
-    }
-    @keyframes mymove1
-    {
-        0%   {left:-100%}
-        50%  {left:-50%}
-        100% {left:0}
+    .reward-content {
+        overflow: hidden;
     }
     .bottom {
         background: #D83D44;
@@ -354,7 +618,9 @@
         position: fixed;
         top: 0;
         left: 0;
+        z-index: 999;
     }
+    /*奖励展示*/
     .model-cotent {
         width: 70%;
         height: 70vw;
@@ -387,6 +653,103 @@
         right: 10vw;
         top: -29vw;
     }
+    /*排行榜*/
+    .ranking-content {
+        width: 88%;
+        height: 120vw;
+        background: url("../assets/image/ranking.png") no-repeat center top;
+        background-size: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        text-align: center;
+    }
+    .ranking-cole {
+        width: 6vw;
+        height: 30vw;
+        background: url("../assets/image/cole.png") no-repeat center bottom;
+        background-size: 100%;
+        position: absolute;
+        right: 10vw;
+        top: -18vw;
+    }
+    /*头像*/
+    .top-image {
+        padding-top: 3vw;
+    }
+    .top-image img {
+        width: 24%;
+        border-radius: 50%;
+    }
+    /*名字*/
+    .top-title {
+        font-weight: 900;
+        font-size: 16px;
+        padding: 1.4vw 0;
+    }
+    .top-text {
+        font-weight: 500;
+        padding: 2vw 0 5vw;
+    }
+    /*列表*/
+    .ranking-list {
+        height: 75vw;
+        overflow-y: auto;
+        border-bottom-right-radius: 11vw;
+        border-bottom-left-radius: 11vw;
+    }
+    .ranking-list-item {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 3vw 0;
+        position: relative;
+    }
+    .ranking-top {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        border-bottom: 1px solid #eee;
+    }
+    .ranking-left {
+        display: flex;
+        align-items: center;
+    }
+    .ranking-right {
+        position: absolute;
+        right: 5vw;
+        color: #FF971C;
+        font-weight: 600;
+    }
+    .number {
+        float: left;
+        color: #fff;
+        font-weight: 900;
+        padding: .6vw 2.6vw .4vw;
+        border-top-right-radius: 3vw;
+        border-bottom-right-radius: 3vw;
+    }
+    .ranking-image {
+        float: left;
+        width: 13vw;
+        margin: 0 2vw;
+    }
+    .ranking-image img {
+        width: 100%;
+        display: block;
+        border-radius: 12vw;
+    }
+    .ranking-name {
+        float: left;
+        font-weight: 900;
+    }
+    .ranking-right {
+        float: right;
+    }
+    /**/
     .fade-enter-active{
         transition: opacity .5s;
     }
